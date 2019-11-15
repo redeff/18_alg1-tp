@@ -1,15 +1,18 @@
 type Circulo = [Integer]
 
+--Esta funcion rota el circulo en sentido anti-horario hasta que el primer elemento sea el 1
 ordenar :: Circulo -> Circulo
 ordenar [] = []
 ordenar (x:xs) | x==1 = (x:xs)
                | otherwise = ordenar (xs++[x])
 
+
 sonCirculosIguales :: Circulo -> Circulo -> Bool
 sonCirculosIguales a b = ordenar a == ordenar b
 
+--La funcion evalua si la suma de cada par de numeros consecutivos de una lista suma primo. (no chequea el primero y el ultimo)
 esListaPrima :: [Integer] -> Bool
-esListaPrima xs | length xs == 0 = True
+esListaPrima xs | length xs == 0 = True 
                 | length (tail xs) == 0 = True
                 | otherwise = esPrimo (head xs + head (tail xs)) && esListaPrima (tail xs)
 
@@ -17,10 +20,9 @@ esCirculoPrimo :: Circulo -> Bool
 esCirculoPrimo [] = True
 esCirculoPrimo xs = esPrimo (head xs + last xs) && esListaPrima xs
 
---Charles, se te ocurre una mejor funcion para esta??
+--Se utiliza que: p es primo <=> p|(p-1)!+1
 esPrimo :: Integer -> Bool
 esPrimo n = mod (fact (n-1)) n == (n-1)
-
    where fact :: Integer -> Integer
          fact 0 = 1
          fact n = n * fact (n-1)
