@@ -34,24 +34,24 @@ ponerCadaUna k (x:xs) = poner k x : ponerCadaUna k xs
 --Siendo n! listas distintas, conformadas con los numeros de 1 a n sin repetir
 permutaciones :: Integer -> [[Integer]]
 permutaciones 0 = [[]]
-permutaciones n = annadir  n
+permutaciones n = annadir n
     where annadir :: Integer -> [[Integer]]
           annadir 0 = []
           annadir k = annadir (k-1) ++ ponerCadaUna k (permutaciones (n-1))
 
 --EJERCICIO 3
---La funcion evalua si la suma de cada par de numeros consecutivos de una lista suma primo. (no chequea el primero y el ultimo)
---Determina si un circulo es primo, revisando si cada suma de consecutivos es prima, inclusive el primerop con el ultimo de la lista.
+--Determina si un circulo es primo, revisando si cada suma de consecutivos es prima, inclusive el primero con el ultimo de la lista.
 esCirculoPrimo :: Circulo -> Bool
 esCirculoPrimo [] = True
 esCirculoPrimo xs = esPrimo (head xs + last xs) && esListaPrima xs
 
+--La funcion evalua si la suma de cada par de numeros consecutivos de una lista suma primo. (no chequea el primero y el ultimo)
 esListaPrima :: [Integer] -> Bool
-esListaPrima xs | length xs == 0 = True 
+esListaPrima xs | length xs == 0 = True
                 | length (tail xs) == 0 = True
                 | otherwise = esPrimo (head xs + head (tail xs)) && esListaPrima (tail xs)
 
---Se utiliza que: p es primo <=> p|(p-1)!+1
+--Se utiliza que: p es primo <=> p>1 && p|(p-1)!+1
 esPrimo :: Integer -> Bool
 esPrimo n
   | n > 1     = mod (fact (n-1)) n == (n-1)
@@ -62,19 +62,19 @@ esPrimo n
     fact n = n * fact (n-1)
 
 --EJERCICIO 4
---Determina si el primer cırculo de la lista circulos esta repetido en otro lugar de esa lista
+--Determina si el primer circulo de la lista circulos esta repetido en otro lugar de esa lista
 estaRepetidoPrimero :: [Circulo] -> Bool
 estaRepetidoPrimero [] = False
 estaRepetidoPrimero (x:xs) = pertenece x xs
 
---Dados un circulo y una lista de circulos, devuelve si este se encuantra en la lista
+--Dados un circulo y una lista de circulos, devuelve si este se encuentra en la lista
 pertenece :: Circulo -> [Circulo] -> Bool
 pertenece _ [] = False
 pertenece a (x:xs) | sonCirculosIguales a x == True = True
                    | otherwise = pertenece a xs
 
 --EJERCICIO 5
---Dado n ≥ 2, devuelve una lista de todos los cırculos primos distintos de longitud n
+--Dado n >= 2, devuelve una lista de todos los circulos primos distintos de longitud n
 listaCirculosPrimos :: Integer -> [Circulo]
 listaCirculosPrimos n = filtrarRepetidos (eliminarNoPrimos (permutaciones n))
 
@@ -83,6 +83,7 @@ eliminarNoPrimos :: [Circulo] -> [Circulo]
 eliminarNoPrimos [] = []
 eliminarNoPrimos (x:xs) | esCirculoPrimo x = x : eliminarNoPrimos xs
                         | otherwise = eliminarNoPrimos xs
+
 --Dada una lista de circulos, devuelve la lista sin circulos repetidos
 filtrarRepetidos :: [Circulo] -> [Circulo]
 filtrarRepetidos [] = []
@@ -90,7 +91,7 @@ filtrarRepetidos (x:xs) | estaRepetidoPrimero (x:xs) == True = filtrarRepetidos 
                         | otherwise = x : filtrarRepetidos xs
 
 --EJERCICIO 6
---devuelve la cantidad de cırculos primos distintos de orden n, para n ≥ 2.
+--devuelve la cantidad de circulos primos distintos de orden n, para n >= 2.
 contarCirculosPrimos :: Integer -> Integer
 contarCirculosPrimos n = long (listaCirculosPrimos n)
     where long :: [Circulo] -> Integer
