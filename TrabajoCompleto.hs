@@ -11,7 +11,7 @@ ordenar (x:xs) | x==1 = (x:xs)
                | otherwise = ordenar (xs++[x])
 
 --EJERCICIO 2:
---dado un valor k, la funcion shit suma 1 a los enteros de la lista mayores o iguales a k
+--dado un valor k, la funcion shift suma 1 a los enteros de la lista mayores o iguales a k
 shift :: Integer -> [Integer] -> [Integer]
 shift _ [] = []
 shift k (x:xs) | x < k  =     x : shift k xs
