@@ -53,10 +53,13 @@ esListaPrima xs | length xs == 0 = True
 
 --Se utiliza que: p es primo <=> p|(p-1)!+1
 esPrimo :: Integer -> Bool
-esPrimo n = mod (fact (n-1)) n == (n-1)
-   where fact :: Integer -> Integer
-         fact 0 = 1
-         fact n = n * fact (n-1)
+esPrimo n
+  | n > 1     = mod (fact (n-1)) n == (n-1)
+  | otherwise = False
+  where
+    fact :: Integer -> Integer
+    fact 0 = 1
+    fact n = n * fact (n-1)
 
 --EJERCICIO 4
 --Determina si el primer cırculo de la lista circulos esta repetido en otro lugar de esa lista
