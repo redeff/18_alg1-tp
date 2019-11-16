@@ -11,13 +11,13 @@ ordenar (x:xs) | x==1 = (x:xs)
                | otherwise = ordenar (xs++[x])
 
 --EJERCICIO 2:
---dado un valor k, la funcion shit suma 1 a los enteros de la lista mayores o iguales a k 
+--dado un valor k, la funcion shit suma 1 a los enteros de la lista mayores o iguales a k
 shift :: Integer -> [Integer] -> [Integer]
 shift _ [] = []
 shift k (x:xs) | x < k  =     x : shift k xs
                | x >= k = (x+1) : shift k xs
 
---Agrega el elemento k a la cabeza de la lista y aplica la funcion shift a la misma 
+--Agrega el elemento k a la cabeza de la lista y aplica la funcion shift a la misma
 --De esta forma, el elemento que se agregue al frente de la lista, no se repetira en la misma.
 poner :: Integer -> [Integer] -> [Integer]
 poner k xs = k : (shift k xs)
@@ -68,7 +68,7 @@ estaRepetidoPrimero (x:xs) = pertenece x xs
 pertenece :: Circulo -> [Circulo] -> Bool
 pertenece _ [] = False
 pertenece a (x:xs) | sonCirculosIguales a x == True = True
-                   | otherwise = pertenece a xs 
+                   | otherwise = pertenece a xs
 
 --EJERCICIO 5
 --Dado n ≥ 2, devuelve una lista de todos los cırculos primos distintos de longitud n
